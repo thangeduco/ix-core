@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const iam_controller_1 = require("../controllers/iam.controller");
+const router = (0, express_1.Router)();
+const iamController = new iam_controller_1.IamController();
+router.get("/sessions", (req, res, next) => iamController.getMySessions(req, res, next));
+router.delete("/sessions/:session_id", (req, res, next) => iamController.revokeSession(req, res, next));
+router.post("/sessions/logout-all", (req, res, next) => iamController.logoutAll(req, res, next));
+exports.default = router;
