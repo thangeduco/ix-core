@@ -27,6 +27,14 @@ function getClientIp(req) {
     }
     return req.ip || undefined;
 }
+function getAuthenticatedUserId(req) {
+    const authenticatedReq = req;
+    const userId = authenticatedReq.iamAuth?.userId;
+    if (!userId) {
+        throw new Error("Unauthorized");
+    }
+    return userId;
+}
 class IamController {
     async register(req, res, next) {
         try {
@@ -78,7 +86,7 @@ class IamController {
     }
     async getMe(req, res, next) {
         try {
-            const userId = String(req.headers["x-user-id"] || "mock-user-id");
+            const userId = getAuthenticatedUserId(req);
             const result = await iamService.getMe(userId);
             res.json((0, response_1.ok)(result, "Get me success"));
         }
@@ -88,7 +96,7 @@ class IamController {
     }
     async updateProfile(req, res, next) {
         try {
-            const userId = String(req.headers["x-user-id"] || "mock-user-id");
+            const userId = getAuthenticatedUserId(req);
             const payload = iam_dto_1.updateProfileDto.parse(req.body);
             const result = await iamService.updateProfile(userId, payload);
             res.json((0, response_1.ok)(result, "Update profile success"));
@@ -106,7 +114,7 @@ class IamController {
     }
     async getMySessions(req, res, next) {
         try {
-            const userId = String(req.headers["x-user-id"] || "mock-user-id");
+            const userId = getAuthenticatedUserId(req);
             const result = await iamService.getMySessions(userId);
             res.json((0, response_1.ok)(result, "Get sessions success"));
         }
@@ -116,7 +124,7 @@ class IamController {
     }
     async revokeSession(req, res, next) {
         try {
-            const userId = String(req.headers["x-user-id"] || "mock-user-id");
+            const userId = getAuthenticatedUserId(req);
             const payload = iam_dto_1.revokeSessionDto.parse(req.params);
             const result = await iamService.revokeSession(userId, payload.session_id);
             res.json((0, response_1.ok)(result, "Revoke session success"));
@@ -134,7 +142,7 @@ class IamController {
     }
     async logoutAll(req, res, next) {
         try {
-            const userId = String(req.headers["x-user-id"] || "mock-user-id");
+            const userId = getAuthenticatedUserId(req);
             const result = await iamService.logoutAll(userId);
             res.json((0, response_1.ok)(result, "Logout all success"));
         }

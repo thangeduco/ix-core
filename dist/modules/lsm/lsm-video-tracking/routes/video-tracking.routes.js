@@ -1,0 +1,18 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.videoTrackingRoutes = void 0;
+const express_1 = require("express");
+const video_tracking_controller_1 = require("../controllers/video-tracking.controller");
+const r = (0, express_1.Router)();
+const c = new video_tracking_controller_1.VideoTrackingController();
+r.post("/video-sessions/start", c.start.bind(c));
+r.post("/video-sessions/heartbeat", c.heartbeat.bind(c));
+r.post("/video-sessions/pause", c.pause.bind(c));
+r.post("/video-sessions/resume", c.resume.bind(c));
+r.post("/video-sessions/seek", c.seek.bind(c));
+r.post("/video-sessions/end", c.end.bind(c));
+r.post("/video-quiz-events/open", c.openEvent.bind(c));
+r.post("/video-quiz-events/close", c.closeEvent.bind(c));
+r.post("/video-quiz-events/answer", c.answer.bind(c));
+r.post("/video-quiz-events/submit", c.submit.bind(c));
+exports.videoTrackingRoutes = r;

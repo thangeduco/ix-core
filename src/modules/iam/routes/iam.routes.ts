@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { IamController } from "../controllers/iam.controller";
 import { avatarUploadMiddleware } from "../services/avatar-upload.middleware";
+import { iamAuthMiddleware } from "../services/iam-auth.middleware";
 
 const iamController = new IamController();
 
@@ -36,14 +37,34 @@ iamRoutes.post(
   iamController.confirmPasswordReset.bind(iamController)
 );
 
-iamRoutes.post("/auth/logout", iamController.logout.bind(iamController));
-iamRoutes.post("/auth/logout-all", iamController.logoutAll.bind(iamController));
+iamRoutes.post(
+  "/auth/logout",
+  iamAuthMiddleware,
+  iamController.logout.bind(iamController)
+);
 
-iamRoutes.get("/auth/sessions", iamController.getMySessions.bind(iamController));
+iamRoutes.post(
+  "/auth/logout-all",
+  iamAuthMiddleware,
+  iamController.logoutAll.bind(iamController)
+);
+
+iamRoutes.get(
+  "/auth/sessions",
+  iamAuthMiddleware,
+  iamController.getMySessions.bind(iamController)
+);
+
 iamRoutes.delete(
   "/auth/sessions/:session_id",
+  iamAuthMiddleware,
   iamController.revokeSession.bind(iamController)
 );
 
-iamRoutes.get("/me", iamController.getMe.bind(iamController));
-iamRoutes.put("/me/profile", iamController.updateProfile.bind(iamController));
+iamRoutes.get("/me", iamAuthMiddleware, iamController.getMe.bind(iamController));
+
+iamRoutes.put(
+  "/me/profile",
+  iamAuthMiddleware,
+  iamController.updateProfile.bind(iamController)
+);

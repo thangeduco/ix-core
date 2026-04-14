@@ -1,73 +1,62 @@
 import { Router } from "express";
 import { LsmController } from "../controllers/lsm.controller";
+import { videoTrackingRoutes } from "../lsm-video-tracking/routes/video-tracking.routes";
 
-const lsmController = new LsmController();
-
+const controller = new LsmController();
 export const lsmRoutes = Router();
 
-lsmRoutes.get("/health", (req, res) => {
-  res.json({
-    module: "lsm",
-    ok: true
-  });
+lsmRoutes.use("/", videoTrackingRoutes);
+
+lsmRoutes.get("/health", (_req, res) => {
+  res.json({ module: "lsm", ok: true });
 });
 
-lsmRoutes.post(
-  "/lesson-videos/:videoId/sessions/start",
-  lsmController.startVideoSession.bind(lsmController)
-);
-
-lsmRoutes.post(
-  "/video-learning-sessions/:sessionId/finish",
-  lsmController.finishVideoSession.bind(lsmController)
-);
-
-lsmRoutes.post(
-  "/quizzes/:quizId/attempts",
-  lsmController.createQuizAttempt.bind(lsmController)
+lsmRoutes.get(
+  "/students/:studentId/courses/pending-weeks",
+  controller.getStudentCoursesWithPendingWeeks.bind(controller)
 );
 
 lsmRoutes.get(
-  "/quiz-attempts/:attemptId",
-  lsmController.getQuizAttemptDetail.bind(lsmController)
-);
-
-lsmRoutes.post(
-  "/homeworks/:homeworkId/submissions",
-  lsmController.createHomeworkSubmission.bind(lsmController)
+  "/students/:studentId/events/recent",
+  controller.getRecentStudentEvents.bind(controller)
 );
 
 lsmRoutes.get(
-  "/homeworks/:homeworkId/submissions",
-  lsmController.listHomeworkSubmissions.bind(lsmController)
+  "/classes/:classId/events/recent",
+  controller.getRecentClassEvents.bind(controller)
 );
 
 lsmRoutes.get(
-  "/homework-submissions/:submissionId",
-  lsmController.getHomeworkSubmissionDetail.bind(lsmController)
-);
-
-lsmRoutes.post(
-  "/classworks/:classworkId/results",
-  lsmController.createClassworkResult.bind(lsmController)
-);
-
-lsmRoutes.post(
-  "/class-tests/:classTestId/results",
-  lsmController.createClassTestResult.bind(lsmController)
-);
-
-lsmRoutes.post(
-  "/periodic-exams/:examId/results",
-  lsmController.createPeriodicExamResult.bind(lsmController)
+  "/students/:studentId/classes/:classCode/weeks/:weekNo/tasks",
+  controller.getStudentWeeklyTasks.bind(controller)
 );
 
 lsmRoutes.get(
-  "/students/:studentId/weeks/:weekId/progress",
-  lsmController.getStudentWeekProgress.bind(lsmController)
+  "/students/:studentId/classes/:classCode/weeks/:weekNo/progress",
+  controller.getWeekProgress.bind(controller)
 );
 
 lsmRoutes.get(
-  "/students/:studentId/learning-history",
-  lsmController.getLearningHistory.bind(lsmController)
+  "/students/:studentId/classes/:classCode/previous-week-result",
+  controller.getPreviousWeekResult.bind(controller)
+);
+
+lsmRoutes.get(
+  "/students/:studentId/classes/:classCode/weeks/:weekNo/previous-week-result",
+  controller.getPreviousWeekResultByWeekNo.bind(controller)
+);
+
+lsmRoutes.get(
+  "/students/:studentId/classes/:classCode/dashboard",
+  controller.getDashboard.bind(controller)
+);
+
+lsmRoutes.get(
+  "/students/:studentId/classes/:classCode/weeks/:weekNo/dashboard",
+  controller.getDashboardByWeekNo.bind(controller)
+);
+
+lsmRoutes.get(
+  "/students/:studentId/classes/:classCode/tasks/:taskCode",
+  controller.getStudentTaskContent.bind(controller)
 );

@@ -1,0 +1,6 @@
+find ./src/modules/lsm -type f -print0 | xargs -0 -I {} sh -c 'echo "===== {} ====="; cat "{}"' > abc.txt
+
+find ./src/modules/lsm/lsm-video-tracking -type f -print0 | xargs -0 -I {} sh -c 'echo "===== {} ====="; cat "{}"' > abc.txt
+
+
+

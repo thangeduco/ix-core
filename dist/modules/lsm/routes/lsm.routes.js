@@ -3,23 +3,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.lsmRoutes = void 0;
 const express_1 = require("express");
 const lsm_controller_1 = require("../controllers/lsm.controller");
-const lsmController = new lsm_controller_1.LsmController();
+const video_tracking_routes_1 = require("../lsm-video-tracking/routes/video-tracking.routes");
+const controller = new lsm_controller_1.LsmController();
 exports.lsmRoutes = (0, express_1.Router)();
-exports.lsmRoutes.get("/health", (req, res) => {
-    res.json({
-        module: "lsm",
-        ok: true
-    });
+exports.lsmRoutes.use("/", video_tracking_routes_1.videoTrackingRoutes);
+exports.lsmRoutes.get("/health", (_req, res) => {
+    res.json({ module: "lsm", ok: true });
 });
-exports.lsmRoutes.post("/lesson-videos/:videoId/sessions/start", lsmController.startVideoSession.bind(lsmController));
-exports.lsmRoutes.post("/video-learning-sessions/:sessionId/finish", lsmController.finishVideoSession.bind(lsmController));
-exports.lsmRoutes.post("/quizzes/:quizId/attempts", lsmController.createQuizAttempt.bind(lsmController));
-exports.lsmRoutes.get("/quiz-attempts/:attemptId", lsmController.getQuizAttemptDetail.bind(lsmController));
-exports.lsmRoutes.post("/homeworks/:homeworkId/submissions", lsmController.createHomeworkSubmission.bind(lsmController));
-exports.lsmRoutes.get("/homeworks/:homeworkId/submissions", lsmController.listHomeworkSubmissions.bind(lsmController));
-exports.lsmRoutes.get("/homework-submissions/:submissionId", lsmController.getHomeworkSubmissionDetail.bind(lsmController));
-exports.lsmRoutes.post("/classworks/:classworkId/results", lsmController.createClassworkResult.bind(lsmController));
-exports.lsmRoutes.post("/class-tests/:classTestId/results", lsmController.createClassTestResult.bind(lsmController));
-exports.lsmRoutes.post("/periodic-exams/:examId/results", lsmController.createPeriodicExamResult.bind(lsmController));
-exports.lsmRoutes.get("/students/:studentId/weeks/:weekId/progress", lsmController.getStudentWeekProgress.bind(lsmController));
-exports.lsmRoutes.get("/students/:studentId/learning-history", lsmController.getLearningHistory.bind(lsmController));
+exports.lsmRoutes.get("/students/:studentId/courses/pending-weeks", controller.getStudentCoursesWithPendingWeeks.bind(controller));
+exports.lsmRoutes.get("/students/:studentId/events/recent", controller.getRecentStudentEvents.bind(controller));
+exports.lsmRoutes.get("/classes/:classId/events/recent", controller.getRecentClassEvents.bind(controller));
+exports.lsmRoutes.get("/students/:studentId/classes/:classCode/weeks/:weekNo/tasks", controller.getStudentWeeklyTasks.bind(controller));
+exports.lsmRoutes.get("/students/:studentId/classes/:classCode/weeks/:weekNo/progress", controller.getWeekProgress.bind(controller));
+exports.lsmRoutes.get("/students/:studentId/classes/:classCode/previous-week-result", controller.getPreviousWeekResult.bind(controller));
+exports.lsmRoutes.get("/students/:studentId/classes/:classCode/weeks/:weekNo/previous-week-result", controller.getPreviousWeekResultByWeekNo.bind(controller));
+exports.lsmRoutes.get("/students/:studentId/classes/:classCode/dashboard", controller.getDashboard.bind(controller));
+exports.lsmRoutes.get("/students/:studentId/classes/:classCode/weeks/:weekNo/dashboard", controller.getDashboardByWeekNo.bind(controller));
+exports.lsmRoutes.get("/students/:studentId/classes/:classCode/tasks/:taskCode", controller.getStudentTaskContent.bind(controller));

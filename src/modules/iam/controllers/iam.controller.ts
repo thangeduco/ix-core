@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 import { IamService } from "../services/iam.service";
 import {
@@ -11,6 +11,9 @@ import {
   updateProfileDto
 } from "../dtos/iam.dto";
 import { ok } from "../../../shared/utils/response";
+import {
+  AuthenticatedIamRequest
+} from "../services/iam-auth.middleware";
 
 const iamService = new IamService();
 
@@ -42,6 +45,17 @@ function getClientIp(req: Request): string | undefined {
   }
 
   return req.ip || undefined;
+}
+
+function getAuthenticatedUserId(req: Request): string {
+  const authenticatedReq = req as AuthenticatedIamRequest;
+  const userId = authenticatedReq.iamAuth?.userId;
+
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
+
+  return userId;
 }
 
 export class IamController {
@@ -104,7 +118,7 @@ export class IamController {
 
   async getMe(req: Request, res: Response, next: NextFunction) {
     try {
-      const userId = String(req.headers["x-user-id"] || "mock-user-id");
+      const userId = getAuthenticatedUserId(req);
       const result = await iamService.getMe(userId);
       res.json(ok(result, "Get me success"));
     } catch (error) {
@@ -114,7 +128,7 @@ export class IamController {
 
   async updateProfile(req: Request, res: Response, next: NextFunction) {
     try {
-      const userId = String(req.headers["x-user-id"] || "mock-user-id");
+      const userId = getAuthenticatedUserId(req);
       const payload = updateProfileDto.parse(req.body);
       const result = await iamService.updateProfile(userId, payload);
       res.json(ok(result, "Update profile success"));
@@ -133,7 +147,7 @@ export class IamController {
 
   async getMySessions(req: Request, res: Response, next: NextFunction) {
     try {
-      const userId = String(req.headers["x-user-id"] || "mock-user-id");
+      const userId = getAuthenticatedUserId(req);
       const result = await iamService.getMySessions(userId);
       res.json(ok(result, "Get sessions success"));
     } catch (error) {
@@ -143,7 +157,7 @@ export class IamController {
 
   async revokeSession(req: Request, res: Response, next: NextFunction) {
     try {
-      const userId = String(req.headers["x-user-id"] || "mock-user-id");
+      const userId = getAuthenticatedUserId(req);
       const payload = revokeSessionDto.parse(req.params);
       const result = await iamService.revokeSession(userId, payload.session_id);
       res.json(ok(result, "Revoke session success"));
@@ -162,7 +176,7 @@ export class IamController {
 
   async logoutAll(req: Request, res: Response, next: NextFunction) {
     try {
-      const userId = String(req.headers["x-user-id"] || "mock-user-id");
+      const userId = getAuthenticatedUserId(req);
       const result = await iamService.logoutAll(userId);
       res.json(ok(result, "Logout all success"));
     } catch (error) {

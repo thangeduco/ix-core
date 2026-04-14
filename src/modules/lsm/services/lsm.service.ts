@@ -1,220 +1,209 @@
 import { LsmRepository } from "../repositories/lsm.repository";
+import { LsmProgressService } from "./lsm-progress.service";
+import { LsmStudentOverviewService } from "./lsm-student-overview.service";
+import { LsmVideoLectureService } from "./lsm-video-lecture.service";
+import { LsmFileContentService } from "./lsm-file-content.service";
+import { LsmQuizTestService } from "./lsm-quiz-test.service";
+import { LsmStudentTaskContentResponse } from "../types/lsm.types";
 
 export class LsmService {
-  private readonly lsmRepository = new LsmRepository();
+  private readonly repo = new LsmRepository();
+  private readonly overviewService = new LsmStudentOverviewService(this.repo);
+  private readonly progressService = new LsmProgressService(
+    this.repo,
+    this.getTaskStatus.bind(this),
+    this.getPreviousWeekNo.bind(this)
+  );
+  private readonly videoLectureService = new LsmVideoLectureService(this.repo);
+  private readonly fileContentService = new LsmFileContentService(this.repo);
+  private readonly quizTestService = new LsmQuizTestService(this.repo);
 
-  async startVideoSession(videoId: string, payload: {
-    student_user_id: string;
-    start_at?: string;
-  }) {
-    return this.lsmRepository.createVideoLearningSession({
-      student_user_id: payload.student_user_id,
-      lesson_video_id: videoId,
-      start_at: payload.start_at
-    });
+  async getStudentCoursesWithPendingWeeks(studentId: string) {
+    return this.overviewService.getStudentCoursesWithPendingWeeks(studentId);
   }
 
-  async finishVideoSession(sessionId: string, payload: {
-    end_at?: string;
-    watched_seconds: number;
-    completion_rate: number;
-    is_completed: boolean;
-  }) {
-    const session = await this.lsmRepository.findVideoSessionById(sessionId);
+  async getRecentStudentEvents(studentId: string, limit = 10) {
+    return this.overviewService.getRecentStudentEvents(studentId, limit);
+  }
 
-    if (!session) {
-      throw new Error("Video session not found");
+  async getRecentClassEvents(classId: string, limit = 10) {
+    return this.overviewService.getRecentClassEvents(classId, limit);
+  }
+
+  getPreviousWeekNo(currentWeekNo: number | null): number | null {
+    if (currentWeekNo === null || currentWeekNo === undefined) {
+      return null;
     }
 
-    return this.lsmRepository.updateVideoLearningSession(sessionId, payload);
+    return currentWeekNo > 1 ? currentWeekNo - 1 : null;
   }
 
-  async createQuizAttempt(quizId: string, payload: {
-    student_user_id: string;
-    started_at?: string;
-    submitted_at?: string;
-    answers: Array<{
-      question_id: string;
-      selected_option_id: string;
-    }>;
-  }) {
-    const quiz = await this.lsmRepository.findQuizById(quizId);
-
-    if (!quiz) {
-      throw new Error("Quiz not found");
+  getTaskStatus(assignStatus?: string | null): string {
+    if (assignStatus === "assigned" || assignStatus === "redo_required") {
+      return "NEED_STUDENT_DO";
     }
 
-    const currentAttempts = await this.lsmRepository.countQuizAttempts(quizId, payload.student_user_id);
-    const attemptNo = currentAttempts + 1;
-
-    const questionOptionRows = await this.lsmRepository.findQuizQuestionsWithOptions(quizId);
-
-    const optionMap = new Map<string, { question_id: string; is_correct: boolean; question_score: number }>();
-    for (const row of questionOptionRows) {
-      optionMap.set(row.option_id, {
-        question_id: row.question_id,
-        is_correct: row.is_correct,
-        question_score: Number(row.question_score || 0)
-      });
+    if (assignStatus === "in_progress") {
+      return "NEED_STUDENT_CONTINUE";
     }
 
-    let totalScore = 0;
-    let correctCount = 0;
-
-    const evaluatedAnswers = payload.answers.map((answer) => {
-      const option = optionMap.get(answer.selected_option_id);
-      const isCorrect = !!option?.is_correct && option.question_id === answer.question_id;
-      const scoreAwarded = isCorrect ? Number(option?.question_score || 0) : 0;
-
-      if (isCorrect) {
-        correctCount += 1;
-        totalScore += scoreAwarded;
-      }
-
-      return {
-        question_id: answer.question_id,
-        selected_option_id: answer.selected_option_id,
-        is_correct: isCorrect,
-        score_awarded: scoreAwarded
-      };
-    });
-
-    const attempt = await this.lsmRepository.createQuizAttempt({
-      quiz_id: quizId,
-      student_user_id: payload.student_user_id,
-      attempt_no: attemptNo,
-      started_at: payload.started_at,
-      submitted_at: payload.submitted_at,
-      score: totalScore,
-      correct_count: correctCount
-    });
-
-    for (const answer of evaluatedAnswers) {
-      await this.lsmRepository.createQuizAttemptAnswer({
-        quiz_attempt_id: attempt.id,
-        question_id: answer.question_id,
-        selected_option_id: answer.selected_option_id,
-        is_correct: answer.is_correct,
-        score_awarded: answer.score_awarded
-      });
+    if (
+      assignStatus === "submitted_for_review" ||
+      assignStatus === "done" ||
+      assignStatus === "reviewed_ok"
+    ) {
+      return "STUDENT_DONE";
     }
 
-    return {
-      attempt,
-      answers: evaluatedAnswers
-    };
+    return "NO_NEED_STUDENT_DO";
   }
 
-  async getQuizAttemptDetail(attemptId: string) {
-    const attempt = await this.lsmRepository.findQuizAttemptById(attemptId);
-
-    if (!attempt) {
-      throw new Error("Quiz attempt not found");
-    }
-
-    const answers = await this.lsmRepository.listQuizAttemptAnswers(attemptId);
-
-    return {
-      ...attempt,
-      answers
-    };
+  async getStudentWeeklyTasks(studentId: string, classCode: string, weekNo: number) {
+    return this.progressService.getStudentWeeklyTasks(studentId, classCode, weekNo);
   }
 
-  async createHomeworkSubmission(homeworkId: string, payload: {
-    student_user_id: string;
-    submission_note?: string;
-    zip_file_id?: string;
-  }) {
-    return this.lsmRepository.createHomeworkSubmission({
-      homework_sheet_id: homeworkId,
-      student_user_id: payload.student_user_id,
-      submission_note: payload.submission_note,
-      zip_file_id: payload.zip_file_id
-    });
+  async getWeekProgress(studentId: string, classCode: string, weekNo: number) {
+    return this.progressService.getWeekProgress(studentId, classCode, weekNo);
   }
 
-  async getHomeworkSubmissionDetail(submissionId: string) {
-    const submission = await this.lsmRepository.findHomeworkSubmissionById(submissionId);
-
-    if (!submission) {
-      throw new Error("Homework submission not found");
-    }
-
-    return submission;
+  async getPreviousWeekResult(studentId: string, classCode: string) {
+    return this.progressService.getPreviousWeekResult(studentId, classCode);
   }
 
-  async listHomeworkSubmissions(homeworkId: string) {
-    return this.lsmRepository.listHomeworkSubmissions(homeworkId);
+  async getPreviousWeekResultByWeekNo(
+    studentId: string,
+    classCode: string,
+    weekNo: number
+  ) {
+    return this.progressService.getPreviousWeekResultByWeekNo(
+      studentId,
+      classCode,
+      weekNo
+    );
   }
 
-  async createClassworkResult(classworkId: string, payload: {
-    student_user_id: string;
-    score: number;
-    teacher_comment?: string;
-  }) {
-    return this.lsmRepository.createClassworkResult({
-      classwork_sheet_id: classworkId,
-      student_user_id: payload.student_user_id,
-      score: payload.score,
-      teacher_comment: payload.teacher_comment
-    });
+  async getDashboard(studentId: string, classCode: string) {
+    return this.progressService.getDashboard(studentId, classCode);
   }
 
-  async createClassTestResult(classTestId: string, payload: {
-    student_user_id: string;
-    score: number;
-    teacher_comment?: string;
-  }) {
-    return this.lsmRepository.createClassTestResult({
-      class_test_id: classTestId,
-      student_user_id: payload.student_user_id,
-      score: payload.score,
-      teacher_comment: payload.teacher_comment
-    });
+  async getDashboardByWeekNo(studentId: string, classCode: string, weekNo: number) {
+    return this.progressService.getDashboardByWeekNo(studentId, classCode, weekNo);
   }
 
-  async createPeriodicExamResult(examId: string, payload: {
-    student_user_id: string;
-    score: number;
-    rank_in_exam?: number;
-  }) {
-    return this.lsmRepository.createPeriodicExamResult({
-      periodic_exam_id: examId,
-      student_user_id: payload.student_user_id,
-      score: payload.score,
-      rank_in_exam: payload.rank_in_exam
-    });
+  async getStudentTaskVideoLecture(
+    studentId: string,
+    classCode: string,
+    taskCode: string
+  ) {
+    return this.videoLectureService.getStudentTaskVideoLecture(
+      studentId,
+      classCode,
+      taskCode
+    );
   }
 
-  async getStudentWeekProgress(studentUserId: string, weekId: string) {
-    const progress = await this.lsmRepository.findStudentWeekProgress(studentUserId, weekId);
-
-    if (!progress) {
-      return this.lsmRepository.upsertStudentWeekProgress({
-        student_user_id: studentUserId,
-        course_week_id: weekId,
-        lesson_completion_rate: 0,
-        quiz_completion_rate: 0,
-        homework_completion_rate: 0,
-        overall_completion_rate: 0,
-        status: "not_started"
-      });
-    }
-
-    return progress;
+  async getStudentTaskFileContent(
+    studentId: string,
+    classCode: string,
+    taskCode: string
+  ) {
+    return this.fileContentService.getStudentTaskFileContent(
+      studentId,
+      classCode,
+      taskCode
+    );
   }
 
-  async getLearningHistory(studentUserId: string) {
-    const [videoSessions, quizAttempts, homeworkSubmissions] = await Promise.all([
-      this.lsmRepository.listVideoSessionsByStudent(studentUserId),
-      this.lsmRepository.listQuizAttemptsByStudent(studentUserId),
-      this.lsmRepository.listHomeworkSubmissionsByStudent(studentUserId)
+  async getStudentTaskQuizeTest(
+    studentId: string,
+    classCode: string,
+    taskCode: string
+  ) {
+    return this.quizTestService.getStudentTaskQuizeTest(
+      studentId,
+      classCode,
+      taskCode
+    );
+  }
+
+  async getStudentTaskContent(
+    studentId: string,
+    classCode: string,
+    taskCode: string
+  ): Promise<LsmStudentTaskContentResponse> {
+    const [classInfoRow, taskStatisticsRow, taskRow] = await Promise.all([
+      this.repo.findClassCourseInfoByClassCode(classCode),
+      this.repo.findTaskStatisticsByTaskCode(studentId, classCode, taskCode),
+      this.repo.findStudentTaskByTaskCode(studentId, classCode, taskCode)
     ]);
 
+    const contentType = taskRow?.content_type ?? null;
+
+    if (contentType === "VIDEO") {
+      return this.videoLectureService.getStudentTaskVideoLecture(
+        studentId,
+        classCode,
+        taskCode
+      );
+    }
+
+    if (contentType === "FILE") {
+      return this.fileContentService.getStudentTaskFileContent(
+        studentId,
+        classCode,
+        taskCode
+      );
+    }
+
+    if (contentType === "QUIZ_TEST") {
+      return this.quizTestService.getStudentTaskQuizeTest(
+        studentId,
+        classCode,
+        taskCode
+      );
+    }
+
     return {
-      video_sessions: videoSessions,
-      quiz_attempts: quizAttempts,
-      homework_submissions: homeworkSubmissions
+      student_id: studentId,
+      class_code: classCode,
+      task_code: taskCode,
+      content_type: contentType,
+      class_info: classInfoRow
+        ? {
+            avatar_url: classInfoRow.avatar_url ?? null,
+            class_name: classInfoRow.class_name ?? null,
+            class_code: classInfoRow.class_code ?? null,
+            slogan: classInfoRow.slogan ?? null
+          }
+        : null,
+      task_info: taskRow
+        ? {
+            task_code: String(taskRow.task_code),
+            task_title: taskRow.task_title ?? null,
+            content_type: taskRow.content_type ?? null
+          }
+        : null,
+      task_statistics: {
+        section_type: taskStatisticsRow?.section_type ?? null,
+        class_id:
+          taskStatisticsRow?.class_id !== null &&
+          taskStatisticsRow?.class_id !== undefined
+            ? String(taskStatisticsRow.class_id)
+            : null,
+        class_week_id:
+          taskStatisticsRow?.class_week_id !== null &&
+          taskStatisticsRow?.class_week_id !== undefined
+            ? String(taskStatisticsRow.class_week_id)
+            : null,
+        total_student_assigned: Number(taskStatisticsRow?.total_student_assigned || 0),
+        total_student_completed: Number(taskStatisticsRow?.total_student_completed || 0),
+        highest_score:
+          taskStatisticsRow?.highest_score !== null &&
+          taskStatisticsRow?.highest_score !== undefined
+            ? Number(taskStatisticsRow.highest_score)
+            : null
+      },
+      file_content: null
     };
   }
 }

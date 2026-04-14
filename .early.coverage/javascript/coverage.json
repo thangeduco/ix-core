@@ -1,0 +1,982 @@
+{
+  "/src/modules/ccc/controllers": {
+    "percentage": 85,
+    "totalStatements": 171,
+    "coveredStatements": 146
+  },
+  "/src/modules/ccc": {
+    "percentage": 91,
+    "totalStatements": 270,
+    "coveredStatements": 245
+  },
+  "/src/modules": {
+    "percentage": 82,
+    "totalStatements": 2009,
+    "coveredStatements": 1640
+  },
+  "/src": {
+    "percentage": 82,
+    "totalStatements": 2016,
+    "coveredStatements": 1647
+  },
+  "/": {
+    "percentage": 82,
+    "totalStatements": 2016,
+    "coveredStatements": 1647
+  },
+  "/src/modules/ccc/controllers/ccc.controller.ts": {
+    "percentage": 85,
+    "totalStatements": 171,
+    "coveredStatements": 146,
+    "testables": [
+      {
+        "name": "CccController",
+        "percentage": null,
+        "totalStatements": null,
+        "coveredStatements": null
+      },
+      {
+        "name": "listCourses",
+        "parentName": "CccController",
+        "percentage": 100,
+        "totalStatements": 8,
+        "coveredStatements": 8
+      },
+      {
+        "name": "createCourse",
+        "parentName": "CccController",
+        "percentage": 100,
+        "totalStatements": 13,
+        "coveredStatements": 13
+      },
+      {
+        "name": "getCourseDetail",
+        "parentName": "CccController",
+        "percentage": 100,
+        "totalStatements": 8,
+        "coveredStatements": 8
+      },
+      {
+        "name": "updateCourse",
+        "parentName": "CccController",
+        "percentage": 78,
+        "totalStatements": 9,
+        "coveredStatements": 7
+      },
+      {
+        "name": "listCourseWeeks",
+        "parentName": "CccController",
+        "percentage": 75,
+        "totalStatements": 8,
+        "coveredStatements": 6
+      },
+      {
+        "name": "createCourseWeek",
+        "parentName": "CccController",
+        "percentage": 78,
+        "totalStatements": 9,
+        "coveredStatements": 7
+      },
+      {
+        "name": "getWeekDetail",
+        "parentName": "CccController",
+        "percentage": 75,
+        "totalStatements": 8,
+        "coveredStatements": 6
+      },
+      {
+        "name": "createLesson",
+        "parentName": "CccController",
+        "percentage": 78,
+        "totalStatements": 9,
+        "coveredStatements": 7
+      },
+      {
+        "name": "getLessonDetail",
+        "parentName": "CccController",
+        "percentage": 75,
+        "totalStatements": 8,
+        "coveredStatements": 6
+      },
+      {
+        "name": "createQuiz",
+        "parentName": "CccController",
+        "percentage": 78,
+        "totalStatements": 9,
+        "coveredStatements": 7
+      },
+      {
+        "name": "getQuizDetail",
+        "parentName": "CccController",
+        "percentage": 75,
+        "totalStatements": 8,
+        "coveredStatements": 6
+      },
+      {
+        "name": "listHomeworks",
+        "parentName": "CccController",
+        "percentage": 75,
+        "totalStatements": 8,
+        "coveredStatements": 6
+      },
+      {
+        "name": "createHomework",
+        "parentName": "CccController",
+        "percentage": 78,
+        "totalStatements": 9,
+        "coveredStatements": 7
+      },
+      {
+        "name": "getParam",
+        "percentage": 62,
+        "totalStatements": 13,
+        "coveredStatements": 8
+      }
+    ]
+  },
+  "/src/modules/ccc/dtos": {
+    "percentage": 100,
+    "totalStatements": 67,
+    "coveredStatements": 67
+  },
+  "/src/modules/ccc/dtos/ccc.dto.ts": {
+    "percentage": 100,
+    "totalStatements": 67,
+    "coveredStatements": 67,
+    "testables": []
+  },
+  "/src/modules/ccc/routes": {
+    "percentage": 100,
+    "totalStatements": 32,
+    "coveredStatements": 32
+  },
+  "/src/modules/ccc/routes/ccc.routes.ts": {
+    "percentage": 100,
+    "totalStatements": 32,
+    "coveredStatements": 32,
+    "testables": []
+  },
+  "/src/modules/cge/controllers": {
+    "percentage": 84,
+    "totalStatements": 217,
+    "coveredStatements": 182
+  },
+  "/src/modules/cge": {
+    "percentage": 90,
+    "totalStatements": 341,
+    "coveredStatements": 306
+  },
+  "/src/modules/cge/controllers/cge.controller.ts": {
+    "percentage": 84,
+    "totalStatements": 217,
+    "coveredStatements": 182,
+    "testables": [
+      {
+        "name": "CgeController",
+        "percentage": null,
+        "totalStatements": null,
+        "coveredStatements": null
+      },
+      {
+        "name": "listClasses",
+        "parentName": "CgeController",
+        "percentage": 80,
+        "totalStatements": 10,
+        "coveredStatements": 8
+      },
+      {
+        "name": "createClass",
+        "parentName": "CgeController",
+        "percentage": 100,
+        "totalStatements": 8,
+        "coveredStatements": 8
+      },
+      {
+        "name": "assignTeacherToClass",
+        "parentName": "CgeController",
+        "percentage": 78,
+        "totalStatements": 9,
+        "coveredStatements": 7
+      },
+      {
+        "name": "createEnrollment",
+        "parentName": "CgeController",
+        "percentage": 75,
+        "totalStatements": 8,
+        "coveredStatements": 6
+      },
+      {
+        "name": "listEnrollments",
+        "parentName": "CgeController",
+        "percentage": 75,
+        "totalStatements": 8,
+        "coveredStatements": 6
+      },
+      {
+        "name": "createGroup",
+        "parentName": "CgeController",
+        "percentage": 86,
+        "totalStatements": 14,
+        "coveredStatements": 12
+      },
+      {
+        "name": "listGroups",
+        "parentName": "CgeController",
+        "percentage": 75,
+        "totalStatements": 8,
+        "coveredStatements": 6
+      },
+      {
+        "name": "getGroupDetail",
+        "parentName": "CgeController",
+        "percentage": 75,
+        "totalStatements": 8,
+        "coveredStatements": 6
+      },
+      {
+        "name": "updateGroup",
+        "parentName": "CgeController",
+        "percentage": 78,
+        "totalStatements": 9,
+        "coveredStatements": 7
+      },
+      {
+        "name": "inviteMembers",
+        "parentName": "CgeController",
+        "percentage": 78,
+        "totalStatements": 9,
+        "coveredStatements": 7
+      },
+      {
+        "name": "createJoinRequest",
+        "parentName": "CgeController",
+        "percentage": 80,
+        "totalStatements": 10,
+        "coveredStatements": 8
+      },
+      {
+        "name": "approveJoinRequest",
+        "parentName": "CgeController",
+        "percentage": 89,
+        "totalStatements": 18,
+        "coveredStatements": 16
+      },
+      {
+        "name": "rejectJoinRequest",
+        "parentName": "CgeController",
+        "percentage": 88,
+        "totalStatements": 16,
+        "coveredStatements": 14
+      },
+      {
+        "name": "removeGroupMember",
+        "parentName": "CgeController",
+        "percentage": 78,
+        "totalStatements": 9,
+        "coveredStatements": 7
+      },
+      {
+        "name": "leaveGroup",
+        "parentName": "CgeController",
+        "percentage": 78,
+        "totalStatements": 9,
+        "coveredStatements": 7
+      },
+      {
+        "name": "getParam",
+        "percentage": 46,
+        "totalStatements": 13,
+        "coveredStatements": 6
+      }
+    ]
+  },
+  "/src/modules/cge/dtos": {
+    "percentage": 100,
+    "totalStatements": 69,
+    "coveredStatements": 69
+  },
+  "/src/modules/cge/dtos/cge.dto.ts": {
+    "percentage": 100,
+    "totalStatements": 69,
+    "coveredStatements": 69,
+    "testables": []
+  },
+  "/src/modules/cge/routes": {
+    "percentage": 100,
+    "totalStatements": 55,
+    "coveredStatements": 55
+  },
+  "/src/modules/cge/routes/cge.routes.ts": {
+    "percentage": 100,
+    "totalStatements": 55,
+    "coveredStatements": 55,
+    "testables": []
+  },
+  "/src/modules/iam/controllers": {
+    "percentage": 61,
+    "totalStatements": 254,
+    "coveredStatements": 155
+  },
+  "/src/modules/iam": {
+    "percentage": 72,
+    "totalStatements": 499,
+    "coveredStatements": 358
+  },
+  "/src/modules/iam/controllers/iam.controller.ts": {
+    "percentage": 61,
+    "totalStatements": 254,
+    "coveredStatements": 155,
+    "testables": [
+      {
+        "name": "IamController",
+        "percentage": null,
+        "totalStatements": null,
+        "coveredStatements": null
+      },
+      {
+        "name": "register",
+        "parentName": "IamController",
+        "percentage": 79,
+        "totalStatements": 24,
+        "coveredStatements": 19
+      },
+      {
+        "name": "login",
+        "parentName": "IamController",
+        "percentage": 79,
+        "totalStatements": 29,
+        "coveredStatements": 23
+      },
+      {
+        "name": "getMe",
+        "parentName": "IamController",
+        "percentage": 88,
+        "totalStatements": 8,
+        "coveredStatements": 7
+      },
+      {
+        "name": "updateProfile",
+        "parentName": "IamController",
+        "percentage": 59,
+        "totalStatements": 17,
+        "coveredStatements": 10
+      },
+      {
+        "name": "getMySessions",
+        "parentName": "IamController",
+        "percentage": 0,
+        "totalStatements": 8,
+        "coveredStatements": 0
+      },
+      {
+        "name": "revokeSession",
+        "parentName": "IamController",
+        "percentage": 0,
+        "totalStatements": 17,
+        "coveredStatements": 0
+      },
+      {
+        "name": "logoutAll",
+        "parentName": "IamController",
+        "percentage": 0,
+        "totalStatements": 8,
+        "coveredStatements": 0
+      },
+      {
+        "name": "requestPasswordReset",
+        "parentName": "IamController",
+        "percentage": 38,
+        "totalStatements": 16,
+        "coveredStatements": 6
+      },
+      {
+        "name": "verifyPasswordResetOtp",
+        "parentName": "IamController",
+        "percentage": 50,
+        "totalStatements": 20,
+        "coveredStatements": 10
+      },
+      {
+        "name": "confirmPasswordReset",
+        "parentName": "IamController",
+        "percentage": 38,
+        "totalStatements": 16,
+        "coveredStatements": 6
+      },
+      {
+        "name": "logout",
+        "parentName": "IamController",
+        "percentage": 75,
+        "totalStatements": 8,
+        "coveredStatements": 6
+      },
+      {
+        "name": "extractBearerToken",
+        "percentage": 47,
+        "totalStatements": 15,
+        "coveredStatements": 7
+      },
+      {
+        "name": "getClientIp",
+        "percentage": 69,
+        "totalStatements": 13,
+        "coveredStatements": 9
+      },
+      {
+        "name": "getAuthenticatedUserId",
+        "percentage": 70,
+        "totalStatements": 10,
+        "coveredStatements": 7
+      }
+    ]
+  },
+  "/src/modules/iam/dtos": {
+    "percentage": 100,
+    "totalStatements": 84,
+    "coveredStatements": 84
+  },
+  "/src/modules/iam/dtos/iam.dto.ts": {
+    "percentage": 100,
+    "totalStatements": 84,
+    "coveredStatements": 84,
+    "testables": []
+  },
+  "/src/modules/iam/routes": {
+    "percentage": 100,
+    "totalStatements": 70,
+    "coveredStatements": 70
+  },
+  "/src/modules/iam/routes/iam.routes.ts": {
+    "percentage": 100,
+    "totalStatements": 70,
+    "coveredStatements": 70,
+    "testables": []
+  },
+  "/src/modules/iam/services": {
+    "percentage": 54,
+    "totalStatements": 91,
+    "coveredStatements": 49
+  },
+  "/src/modules/iam/services/avatar-upload.middleware.ts": {
+    "percentage": 44,
+    "totalStatements": 25,
+    "coveredStatements": 11,
+    "testables": [
+      {
+        "name": "avatarUploadMiddleware",
+        "percentage": null,
+        "totalStatements": null,
+        "coveredStatements": null
+      }
+    ]
+  },
+  "/src/modules/iam/services/iam-auth.middleware.ts": {
+    "percentage": 58,
+    "totalStatements": 66,
+    "coveredStatements": 38,
+    "testables": [
+      {
+        "name": "extractBearerToken",
+        "percentage": 47,
+        "totalStatements": 15,
+        "coveredStatements": 7
+      },
+      {
+        "name": "iamAuthMiddleware",
+        "percentage": 41,
+        "totalStatements": 34,
+        "coveredStatements": 14
+      }
+    ]
+  },
+  "/src/modules/lsm/controllers": {
+    "percentage": 19,
+    "totalStatements": 180,
+    "coveredStatements": 35
+  },
+  "/src/modules/lsm": {
+    "percentage": 48,
+    "totalStatements": 278,
+    "coveredStatements": 133
+  },
+  "/src/modules/lsm/controllers/lsm.controller.ts": {
+    "percentage": 19,
+    "totalStatements": 180,
+    "coveredStatements": 35,
+    "testables": [
+      {
+        "name": "LsmController",
+        "percentage": null,
+        "totalStatements": null,
+        "coveredStatements": null
+      },
+      {
+        "name": "getStudentCoursesWithPendingWeeks",
+        "parentName": "LsmController",
+        "percentage": 0,
+        "totalStatements": 12,
+        "coveredStatements": 0
+      },
+      {
+        "name": "getRecentStudentEvents",
+        "parentName": "LsmController",
+        "percentage": 0,
+        "totalStatements": 13,
+        "coveredStatements": 0
+      },
+      {
+        "name": "getRecentClassEvents",
+        "parentName": "LsmController",
+        "percentage": 0,
+        "totalStatements": 13,
+        "coveredStatements": 0
+      },
+      {
+        "name": "getStudentWeeklyTasks",
+        "parentName": "LsmController",
+        "percentage": 0,
+        "totalStatements": 18,
+        "coveredStatements": 0
+      },
+      {
+        "name": "getWeekProgress",
+        "parentName": "LsmController",
+        "percentage": 0,
+        "totalStatements": 14,
+        "coveredStatements": 0
+      },
+      {
+        "name": "getPreviousWeekResult",
+        "parentName": "LsmController",
+        "percentage": 0,
+        "totalStatements": 12,
+        "coveredStatements": 0
+      },
+      {
+        "name": "getPreviousWeekResultByWeekNo",
+        "parentName": "LsmController",
+        "percentage": 0,
+        "totalStatements": 18,
+        "coveredStatements": 0
+      },
+      {
+        "name": "getDashboard",
+        "parentName": "LsmController",
+        "percentage": 0,
+        "totalStatements": 8,
+        "coveredStatements": 0
+      },
+      {
+        "name": "getDashboardByWeekNo",
+        "parentName": "LsmController",
+        "percentage": 0,
+        "totalStatements": 18,
+        "coveredStatements": 0
+      },
+      {
+        "name": "getStudentTaskVideoLecture",
+        "parentName": "LsmController",
+        "percentage": 0,
+        "totalStatements": 19,
+        "coveredStatements": 0
+      }
+    ]
+  },
+  "/src/modules/lsm/dtos": {
+    "percentage": 100,
+    "totalStatements": 39,
+    "coveredStatements": 39
+  },
+  "/src/modules/lsm/dtos/lsm.dto.ts": {
+    "percentage": 100,
+    "totalStatements": 39,
+    "coveredStatements": 39,
+    "testables": []
+  },
+  "/src/modules/lsm/routes": {
+    "percentage": 100,
+    "totalStatements": 59,
+    "coveredStatements": 59
+  },
+  "/src/modules/lsm/routes/lsm.routes.ts": {
+    "percentage": 100,
+    "totalStatements": 59,
+    "coveredStatements": 59,
+    "testables": []
+  },
+  "/src/modules/plt/controllers": {
+    "percentage": 92,
+    "totalStatements": 66,
+    "coveredStatements": 61
+  },
+  "/src/modules/plt": {
+    "percentage": 96,
+    "totalStatements": 117,
+    "coveredStatements": 112
+  },
+  "/src/modules/plt/controllers/plt.controller.ts": {
+    "percentage": 92,
+    "totalStatements": 66,
+    "coveredStatements": 61,
+    "testables": [
+      {
+        "name": "PltController",
+        "percentage": null,
+        "totalStatements": null,
+        "coveredStatements": null
+      },
+      {
+        "name": "sendNotification",
+        "parentName": "PltController",
+        "percentage": 100,
+        "totalStatements": 8,
+        "coveredStatements": 8
+      },
+      {
+        "name": "getUserNotifications",
+        "parentName": "PltController",
+        "percentage": 100,
+        "totalStatements": 8,
+        "coveredStatements": 8
+      },
+      {
+        "name": "markAsRead",
+        "parentName": "PltController",
+        "percentage": 100,
+        "totalStatements": 8,
+        "coveredStatements": 8
+      },
+      {
+        "name": "uploadFile",
+        "parentName": "PltController",
+        "percentage": 100,
+        "totalStatements": 8,
+        "coveredStatements": 8
+      },
+      {
+        "name": "getParam",
+        "percentage": 62,
+        "totalStatements": 13,
+        "coveredStatements": 8
+      }
+    ]
+  },
+  "/src/modules/plt/dtos": {
+    "percentage": 100,
+    "totalStatements": 18,
+    "coveredStatements": 18
+  },
+  "/src/modules/plt/dtos/plt.dto.ts": {
+    "percentage": 100,
+    "totalStatements": 18,
+    "coveredStatements": 18,
+    "testables": []
+  },
+  "/src/modules/plt/routes": {
+    "percentage": 100,
+    "totalStatements": 33,
+    "coveredStatements": 33
+  },
+  "/src/modules/plt/routes/plt.routes.ts": {
+    "percentage": 100,
+    "totalStatements": 33,
+    "coveredStatements": 33,
+    "testables": []
+  },
+  "/src/modules/pse/controllers": {
+    "percentage": 93,
+    "totalStatements": 98,
+    "coveredStatements": 91
+  },
+  "/src/modules/pse": {
+    "percentage": 95,
+    "totalStatements": 134,
+    "coveredStatements": 127
+  },
+  "/src/modules/pse/controllers/pse.controller.ts": {
+    "percentage": 93,
+    "totalStatements": 98,
+    "coveredStatements": 91,
+    "testables": [
+      {
+        "name": "PseController",
+        "percentage": null,
+        "totalStatements": null,
+        "coveredStatements": null
+      },
+      {
+        "name": "getWeeklyTasks",
+        "parentName": "PseController",
+        "percentage": 100,
+        "totalStatements": 8,
+        "coveredStatements": 8
+      },
+      {
+        "name": "getWeeklySummary",
+        "parentName": "PseController",
+        "percentage": 100,
+        "totalStatements": 8,
+        "coveredStatements": 8
+      },
+      {
+        "name": "getStudentRanking",
+        "parentName": "PseController",
+        "percentage": 100,
+        "totalStatements": 8,
+        "coveredStatements": 8
+      },
+      {
+        "name": "getStudentGroups",
+        "parentName": "PseController",
+        "percentage": 75,
+        "totalStatements": 8,
+        "coveredStatements": 6
+      },
+      {
+        "name": "createParentTask",
+        "parentName": "PseController",
+        "percentage": 100,
+        "totalStatements": 8,
+        "coveredStatements": 8
+      },
+      {
+        "name": "updateParentTask",
+        "parentName": "PseController",
+        "percentage": 100,
+        "totalStatements": 9,
+        "coveredStatements": 9
+      },
+      {
+        "name": "getParentTasks",
+        "parentName": "PseController",
+        "percentage": 100,
+        "totalStatements": 8,
+        "coveredStatements": 8
+      },
+      {
+        "name": "getParam",
+        "percentage": 62,
+        "totalStatements": 13,
+        "coveredStatements": 8
+      }
+    ]
+  },
+  "/src/modules/pse/dtos": {
+    "percentage": 100,
+    "totalStatements": 17,
+    "coveredStatements": 17
+  },
+  "/src/modules/pse/dtos/pse.dto.ts": {
+    "percentage": 100,
+    "totalStatements": 17,
+    "coveredStatements": 17,
+    "testables": []
+  },
+  "/src/modules/pse/routes": {
+    "percentage": 100,
+    "totalStatements": 19,
+    "coveredStatements": 19
+  },
+  "/src/modules/pse/routes/pse.routes.ts": {
+    "percentage": 100,
+    "totalStatements": 19,
+    "coveredStatements": 19,
+    "testables": []
+  },
+  "/src/modules/slp/controllers": {
+    "percentage": 100,
+    "totalStatements": 39,
+    "coveredStatements": 39
+  },
+  "/src/modules/slp": {
+    "percentage": 100,
+    "totalStatements": 78,
+    "coveredStatements": 78
+  },
+  "/src/modules/slp/controllers/slp.controller.ts": {
+    "percentage": 100,
+    "totalStatements": 39,
+    "coveredStatements": 39,
+    "testables": [
+      {
+        "name": "SlpController",
+        "percentage": null,
+        "totalStatements": null,
+        "coveredStatements": null
+      },
+      {
+        "name": "calculateRanking",
+        "parentName": "SlpController",
+        "percentage": 100,
+        "totalStatements": 8,
+        "coveredStatements": 8
+      },
+      {
+        "name": "getRanking",
+        "parentName": "SlpController",
+        "percentage": 100,
+        "totalStatements": 8,
+        "coveredStatements": 8
+      },
+      {
+        "name": "compareRanking",
+        "parentName": "SlpController",
+        "percentage": 100,
+        "totalStatements": 8,
+        "coveredStatements": 8
+      }
+    ]
+  },
+  "/src/modules/slp/dtos": {
+    "percentage": 100,
+    "totalStatements": 15,
+    "coveredStatements": 15
+  },
+  "/src/modules/slp/dtos/slp.dto.ts": {
+    "percentage": 100,
+    "totalStatements": 15,
+    "coveredStatements": 15,
+    "testables": []
+  },
+  "/src/modules/slp/routes": {
+    "percentage": 100,
+    "totalStatements": 24,
+    "coveredStatements": 24
+  },
+  "/src/modules/slp/routes/slp.routes.ts": {
+    "percentage": 100,
+    "totalStatements": 24,
+    "coveredStatements": 24,
+    "testables": []
+  },
+  "/src/modules/tew/controllers": {
+    "percentage": 92,
+    "totalStatements": 131,
+    "coveredStatements": 120
+  },
+  "/src/modules/tew": {
+    "percentage": 96,
+    "totalStatements": 292,
+    "coveredStatements": 281
+  },
+  "/src/modules/tew/controllers/tew.controller.ts": {
+    "percentage": 92,
+    "totalStatements": 131,
+    "coveredStatements": 120,
+    "testables": [
+      {
+        "name": "TewController",
+        "percentage": null,
+        "totalStatements": null,
+        "coveredStatements": null
+      },
+      {
+        "name": "getReviewWorkspace",
+        "parentName": "TewController",
+        "percentage": 100,
+        "totalStatements": 10,
+        "coveredStatements": 10
+      },
+      {
+        "name": "createWeeklyReview",
+        "parentName": "TewController",
+        "percentage": 100,
+        "totalStatements": 14,
+        "coveredStatements": 14
+      },
+      {
+        "name": "updateWeeklyReview",
+        "parentName": "TewController",
+        "percentage": 100,
+        "totalStatements": 9,
+        "coveredStatements": 9
+      },
+      {
+        "name": "getWeeklyReviewDetail",
+        "parentName": "TewController",
+        "percentage": 75,
+        "totalStatements": 8,
+        "coveredStatements": 6
+      },
+      {
+        "name": "createTeacherAssignedTask",
+        "parentName": "TewController",
+        "percentage": 100,
+        "totalStatements": 8,
+        "coveredStatements": 8
+      },
+      {
+        "name": "listTeacherAssignedTasks",
+        "parentName": "TewController",
+        "percentage": 75,
+        "totalStatements": 8,
+        "coveredStatements": 6
+      },
+      {
+        "name": "createStudentHomeworkOverride",
+        "parentName": "TewController",
+        "percentage": 86,
+        "totalStatements": 14,
+        "coveredStatements": 12
+      },
+      {
+        "name": "createOfflineActivityRecord",
+        "parentName": "TewController",
+        "percentage": 100,
+        "totalStatements": 14,
+        "coveredStatements": 14
+      },
+      {
+        "name": "getParam",
+        "percentage": 62,
+        "totalStatements": 13,
+        "coveredStatements": 8
+      }
+    ]
+  },
+  "/src/modules/tew/dtos": {
+    "percentage": 100,
+    "totalStatements": 108,
+    "coveredStatements": 108
+  },
+  "/src/modules/tew/dtos/tew.dto.ts": {
+    "percentage": 100,
+    "totalStatements": 108,
+    "coveredStatements": 108,
+    "testables": []
+  },
+  "/src/modules/tew/routes": {
+    "percentage": 100,
+    "totalStatements": 53,
+    "coveredStatements": 53
+  },
+  "/src/modules/tew/routes/tew.routes.ts": {
+    "percentage": 100,
+    "totalStatements": 53,
+    "coveredStatements": 53,
+    "testables": []
+  },
+  "/src/shared/utils": {
+    "percentage": 100,
+    "totalStatements": 7,
+    "coveredStatements": 7
+  },
+  "/src/shared": {
+    "percentage": 100,
+    "totalStatements": 7,
+    "coveredStatements": 7
+  },
+  "/src/shared/utils/response.ts": {
+    "percentage": 100,
+    "totalStatements": 7,
+    "coveredStatements": 7,
+    "testables": [
+      {
+        "name": "ok",
+        "percentage": 100,
+        "totalStatements": 7,
+        "coveredStatements": 7
+      }
+    ]
+  }
+}

@@ -29,6 +29,17 @@ class IamService {
             roles: params.roles
         };
     }
+    async authenticateAccessToken(accessToken) {
+        const accessTokenHash = this.hashText(accessToken);
+        const session = await this.iamRepository.findActiveSessionByAccessTokenHash(accessTokenHash);
+        if (!session || !session.user_id) {
+            return null;
+        }
+        return {
+            session_id: session.id,
+            user_id: session.user_id
+        };
+    }
     async register(payload) {
         const identifier = payload.email || payload.phone || "";
         const existingUser = await this.iamRepository.findUserByEmailOrPhone(identifier);
@@ -149,9 +160,21 @@ class IamService {
             email: user.email,
             phone: user.phone,
             status: user.status,
+            full_name: profile?.full_name || "",
+            display_name: profile?.display_name || null,
+            avatar_url: profile?.avatar_url || null,
+            slogen: profile?.slogen || null,
+            gender: profile?.gender || null,
+            date_of_birth: profile?.date_of_birth
+                ? profile.date_of_birth.toISOString()
+                : null,
+            address: profile?.address || null,
+            province_code: profile?.province_code || null,
+            school_name: profile?.school_name || null,
+            grade: profile?.grade || null,
+            bio: profile?.bio || null,
             role_code: roles[0] || null,
-            roles,
-            profile
+            roles
         };
     }
     async updateProfile(userId, payload) {
